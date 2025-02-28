@@ -32,7 +32,7 @@ const Question = ({ questionIndex, onSelectAnswer, onSkipAnswer }) => {
       });
 
       setTimeout(() => {
-        onSelectAnswer(answer);
+        onSelectAnswer(ans);
       }, 2000);
     }, 1000);
   };

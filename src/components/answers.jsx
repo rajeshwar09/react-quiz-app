@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import QUESTIONS from "../questions.js";
 
 const Answers = ({ answers, selectedAnswer, answerState, onSelect }) => {
   const shuffledAnswersRef = useRef();
