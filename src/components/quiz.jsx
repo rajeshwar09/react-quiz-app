@@ -5,34 +5,15 @@ import Question from "./question.jsx";
 
 const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
-  const [answerState, setAnswerState] = useState("");
 
-  const activeQuestionIndex =
-    answerState === "" ? userAnswers.length : userAnswers.length - 1;
+  const activeQuestionIndex = userAnswers.length;
   const IsQuizComplete = activeQuestionIndex === QUESTIONS.length;
 
-  const handleSelectAnswer = useCallback(
-    (selectedAnswer) => {
-      setAnswerState("answered");
-      setUserAnswers((prevAnswers) => {
-        return [...prevAnswers, selectedAnswer];
-      });
-
-      // set the answerState to correct or incorrect after certain time
-      setTimeout(() => {
-        if (selectedAnswer === QUESTIONS[activeQuestionIndex].answers[0]) {
-          setAnswerState("correct");
-        } else {
-          setAnswerState("wrong");
-        }
-
-        setTimeout(() => {
-          setAnswerState("");
-        }, 2000);
-      }, 1000);
-    },
-    [activeQuestionIndex]
-  );
+  const handleSelectAnswer = useCallback((selectedAnswer) => {
+    setUserAnswers((prevAnswers) => {
+      return [...prevAnswers, selectedAnswer];
+    });
+  }, []);
 
   const handleSkipAnswer = useCallback(
     () => handleSelectAnswer(null),
@@ -52,11 +33,8 @@ const Quiz = () => {
     <div id="quiz">
       <Question
         key={activeQuestionIndex}
-        questionText={QUESTIONS[activeQuestionIndex].text}
-        answers={QUESTIONS[activeQuestionIndex].answers}
+        questionIndex={activeQuestionIndex}
         onSelectAnswer={handleSelectAnswer}
-        selectedAnswer={userAnswers[userAnswers.length - 1]}
-        answerState={answerState}
         onSkipAnswer={handleSkipAnswer}
       />
     </div>
